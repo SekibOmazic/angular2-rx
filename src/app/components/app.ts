@@ -8,6 +8,7 @@ import {BrowserLocation} from 'angular2/src/router/browser_location';
 
 import {Home} from './home/home';
 import {Timeflies} from './timeflies/timeflies';
+import {Tictactoe} from './tictactoe/tictactoe';
 
 // Import all of our custom app directives
 import {appDirectives} from '../directives/directives';
@@ -28,6 +29,7 @@ import {appDirectives} from '../directives/directives';
           <ul class="rxjs-menu">
             <li><a router-link="home" class="md-button md-default-theme"><span>Home</span></a></li>
             <li><a router-link="timeflies" class="md-button md-default-theme">Timeflies</a></li>
+            <li><a router-link="tictactoe" class="md-button md-default-theme">Tic Tac Toe</a></li>
           </ul>
         </md-sidenav>
         <div layout="column" flex id="content">
@@ -40,7 +42,8 @@ import {appDirectives} from '../directives/directives';
 })
 @RouteConfig([
   { path: '/',          as: 'home',      component: Home },
-  { path: '/timeflies', as: 'timeflies', component: Timeflies }
+  { path: '/timeflies', as: 'timeflies', component: Timeflies },
+  { path: '/tictactoe', as: 'tictactoe', component: Tictactoe }
 ])
 export class App {
   name: string;

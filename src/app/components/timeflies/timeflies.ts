@@ -14,7 +14,7 @@ import * as Rx from 'rx';
 
 @Component({
   selector: 'timeflies',
-  hostInjector: [MessageService]
+  hostInjector: [ MessageService ]
 })
 @View({
   directives: [ NgFor ],

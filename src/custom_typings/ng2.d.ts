@@ -225,6 +225,15 @@ declare module "angular2/angular2" {
     domElement: any;
   }
 
+
+  class EventEmitter {
+    observer(generator);
+    toRx(): Rx.Observable<any>;
+    next(value);
+    throw(error);
+    return (value);
+  }
+
   function NgSwitch(): void;
   function NgSwitchWhen(): void;
   function NgSwitchDefault(): void;
@@ -236,7 +245,7 @@ declare module "angular2/angular2" {
   var coreDirectives: any;
 
   var Observable: any;
-  var EventEmitter: any;
+  //var EventEmitter: any;
   var DomRenderer: any;
   var DOCUMENT_TOKEN: any;
   var ASTWithSource: any;

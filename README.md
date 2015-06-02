@@ -78,6 +78,7 @@ We have good experience using these editors:
 
 
 ### Todo
+* Add fetch polyfill. For now it works in Chrome only
 * production/development environments
 * testing
 * e2e

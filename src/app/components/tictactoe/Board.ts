@@ -2,7 +2,7 @@
 /// <reference path="../../../custom_typings/ng2.d.ts" />
 
 // Angular 2
-import { Component, View, NgFor, Observable, EventEmitter } from 'angular2/angular2';
+import { Component, View, NgFor, EventEmitter } from 'angular2/angular2';
 
 @Component({
   selector: 'board',
@@ -28,7 +28,7 @@ import { Component, View, NgFor, Observable, EventEmitter } from 'angular2/angul
   `
 })
 export class Board {
-  select: Observable;
+  select: EventEmitter;
 
   constructor() {
     this.select = new EventEmitter();

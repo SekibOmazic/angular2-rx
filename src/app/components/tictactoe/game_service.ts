@@ -1,6 +1,9 @@
+type Triple = [string, string, string];
+type Rows = [Triple, Triple, Triple];
+
 export class Game {
 
-  board: Array<any>;
+  board: Rows;
   player: string;
   winner: string;
   gameover: boolean;
@@ -25,7 +28,7 @@ export class Game {
   }
 
   check() {
-    var allWinningLists = [
+    const allWinningLists = [
       this.board,                   // rows
       zip(this.board),        // columns
       diagonals(this.board)   // diagonals
@@ -51,24 +54,24 @@ export class Game {
 
 }
 
-function getWinnerFromList(winner, list) {
+function getWinnerFromList(winner, list: Triple) {
   if (winner) return winner;
   if (list.every(s => s == 'o')) return 'o';
   if (list.every(s => s == 'x')) return 'x';
   return '';
 }
 
-function zip(arrays) {
+function zip(arrays: Rows) {
   return arrays[0].map(function(_, i) {
     return arrays.map(function(array) { return array[i] } )
   });
 }
 
-function checkDraw(rows) {
+function checkDraw(rows: Rows) {
   return rows.every(row => row.every(item => item != ''));
 }
 
-function diagonals(rows) {
+function diagonals(rows: Rows) {
   return [
     rows.map((row, index) => row[index]), // left to right diagonal
     rows.map((row, index) => row[row.length - 1 - index]) // right to left diagonal

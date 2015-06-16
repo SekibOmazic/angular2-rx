@@ -33,8 +33,8 @@ export class Search {
     this.items = [];
   }
 
-  showResults(repos) {
-    this.items = repos;
+  showResults(results: string[]) {
+    this.items = results;
   }
 
 }

@@ -3,52 +3,41 @@
 
 // Angular 2
 import { Directive, View, ElementRef, NgFor, EventEmitter } from 'angular2/angular2';
+import { Inject } from 'angular2/di';
 
 // RxJs
 import * as Rx from 'rx';
 
-import { Github } from './github';
+import { Searchable } from 'Searchable';
 
 @Directive({
   selector: 'input[type=text][autosuggest]',
-  events: [ 'term' ],
-  hostInjector: [ Github ]
+  events: [ 'term' ]
 })
 export class Autosuggest {
 
-  github: Github;
+  service: Searchable<string[]>;
   term: EventEmitter;
   //keyups: Rx.Observable;
 
-  constructor(elementRef: ElementRef, github: Github) {
+  constructor(elementRef: ElementRef, @Inject('Searchable') service: Searchable<string[]>) {
 
-    this.github = github;
+    this.service = service;
     this.term = new EventEmitter();
 
     Rx.Observable.fromEvent(elementRef.domElement, 'keyup')
-      .map(function (e) {
-        return e.target.value; // Project the text from the input
-      })
-      .filter(function (text) {
-        return text.length > 2; // Only if the text is longer than 2 characters
-      })
       .debounce(250) // Pause for 250ms
       .distinctUntilChanged() // Only if the value has changed
+      .map(e => e.target.value) // Project the text from the input
+      .filter((text: string) => text.length > 2) // Only if the text is longer than 2 characters
 
-      .flatMapLatest(term => this.github.repos(term)) // search github
-
-      // get items property from response object
-      .map(result => result.items)
+      .flatMapLatest((query: string) => this.service.search(query)) // send query to search service
 
       // here is the real action
-      .subscribe(repos => {
-        // extract repo names only
-        var repositories = repos.map(repo => repo.name);
-        console.log(repositories);
-
+      .subscribe((results: string[]) => {
         // fire "term" event
         // the Search component is the listener
-        this.term.next(repositories);
+        this.term.next(results);
       })
   }
 

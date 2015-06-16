@@ -3,20 +3,13 @@
 
 export class Github {
 
-  url: string;
-
-  constructor() {
-    this.url = 'https://api.github.com/search/repositories';
-  }
+  url = 'https://api.github.com/search/repositories?q=';
 
   repos(term) {
-    // `${this.url}` == undefined -- WTF???
-
     // TODO: include fetch polyfill. Right now use global one from Chrome
-    return fetch(`https://api.github.com/search/repositories?q=${term}`)
+    return fetch(`${this.url}${term}`)
       .then(status)
       .then(json)
-      .then(response => response)
       .catch(error => {
         console.log(error.message);
         return error.message;

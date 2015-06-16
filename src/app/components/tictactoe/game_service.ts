@@ -27,15 +27,15 @@ export class Game {
   check() {
     var allWinningLists = [
       this.board,                   // rows
-      this._zip(this.board),        // columns
-      this._diagonals(this.board)   // diagonals
+      zip(this.board),        // columns
+      diagonals(this.board)   // diagonals
     ];
 
     this.winner = allWinningLists
       .reduce((allLists, lists) => allLists.concat(lists), [])
-      .reduce(this.getWinnerFromList, '');
+      .reduce(getWinnerFromList, '');
 
-    if (this._checkDraw(this.board) || this.winner !=='') {
+    if (checkDraw(this.board) || this.winner !=='') {
       this.gameover = true;
     }
   }
@@ -44,31 +44,34 @@ export class Game {
     return this.gameover;
   }
 
-  getWinnerFromList(winner, list) {
-    if (winner) return winner;
-    if (list.every(s => s == 'o')) return 'o';
-    if (list.every(s => s == 'x')) return 'x';
-    return '';
-  }
-
-  _zip(arrays) {
-    return arrays[0].map(function(_, i) {
-      return arrays.map(function(array) { return array[i] } )
-    });
-  }
-
-  _checkDraw(rows) {
-    return rows.every(row => row.every(item => item != ''));
-  }
 
   get draw() {
     return this.gameover && this.winner === ''
   }
 
-  _diagonals(rows) {
-    return [
-      rows.map((row, index) => row[index]), // left to right diagonal
-      rows.map((row, index) => row[row.length - 1 - index]) // right to left diagonal
-    ];
-  }
 }
+
+function getWinnerFromList(winner, list) {
+  if (winner) return winner;
+  if (list.every(s => s == 'o')) return 'o';
+  if (list.every(s => s == 'x')) return 'x';
+  return '';
+}
+
+function zip(arrays) {
+  return arrays[0].map(function(_, i) {
+    return arrays.map(function(array) { return array[i] } )
+  });
+}
+
+function checkDraw(rows) {
+  return rows.every(row => row.every(item => item != ''));
+}
+
+function diagonals(rows) {
+  return [
+    rows.map((row, index) => row[index]), // left to right diagonal
+    rows.map((row, index) => row[row.length - 1 - index]) // right to left diagonal
+  ];
+}
+

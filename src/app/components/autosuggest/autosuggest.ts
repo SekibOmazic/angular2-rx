@@ -35,7 +35,7 @@ export class Autosuggest {
       .debounce(250) // Pause for 250ms
       .distinctUntilChanged() // Only if the value has changed
 
-      .flatMapLatest(this.github.repos) // search github
+      .flatMapLatest(term => this.github.repos(term)) // search github
 
       // get items property from response object
       .map(result => result.items)

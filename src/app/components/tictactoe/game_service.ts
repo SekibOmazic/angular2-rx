@@ -1,42 +1,51 @@
-type Triple = [string, string, string];
+type Triple = [string, string, string]; // tuple type
 type Rows = [Triple, Triple, Triple];
+type Point = { x: number; y: number }
 
 export class Game {
 
   board: Rows = [['', '', ''], ['', '', ''], ['', '', '']];
-  player = 'x';
-  winner = '';
-  gameover = false;
+  plays: Point[] = [];
 
-  play(x: number, y: number) {
-    if (!this.gameover && this.board[x][y] ==='') {
+  play(coord: Point) {
+    const { x, y } = coord;
+    if (!this.gameover && this.board[x][y] === '') {
       this.board[x][y] = this.player;
-      this.player = this.player == 'x' ? 'o': 'x';
-      this.check();
     }
+    this.plays.push(coord); //TODO: create Rx Observable
   }
 
-  check() {
-    const allWinningLists = [].concat(
-      this.board,             // rows
-      zip(this.board),        // columns
-      diagonals(this.board)   // diagonals
-    );
+  get player() {
+    return ['x', 'o'][this.plays.length % 2];
+  }
 
-    this.winner = allWinningLists.reduce(getWinnerFromList, '');
+  get gameover() {
+    return this.draw || this.winner !== '';
+  }
 
-    if (checkDraw(this.board) || this.winner !=='') {
-      this.gameover = true;
-    }
+  get winner(): string {
+    return getWinnerFromBoard(this.board);
   }
 
   get draw() {
-    return this.gameover && this.winner === ''
+    return this.plays.length === 9;
   }
 
 }
 
-function getWinnerFromList(winner, list: Triple) {
+// Pure functions
+
+function getWinnerFromBoard(board: Rows): string {
+  const allWinningLists = [].concat(
+    board,             // rows
+    zip(board),        // columns
+    diagonals(board)   // diagonals
+  );
+
+  return allWinningLists.reduce(getWinnerFromList, '');
+}
+
+function getWinnerFromList(winner: string, list: Triple) {
   if (winner) return winner;
   if (list.every(s => s == 'o')) return 'o';
   if (list.every(s => s == 'x')) return 'x';
@@ -49,14 +58,9 @@ function zip(arrays: Rows) {
   });
 }
 
-function checkDraw(rows: Rows) {
-  return rows.every(row => row.every(item => item != ''));
-}
-
 function diagonals(rows: Rows) {
   return [
     rows.map((row, index) => row[index]), // left to right diagonal
     rows.map((row, index) => row[row.length - 1 - index]) // right to left diagonal
   ];
 }
-

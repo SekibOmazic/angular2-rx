@@ -3,16 +3,12 @@ type Rows = [Triple, Triple, Triple];
 
 export class Game {
 
-  board: Rows;
-  player: string;
-  winner: string;
-  gameover: boolean;
+  board: Rows = [['', '', ''], ['', '', ''], ['', '', '']];
+  player = 'x';
+  winner = '';
+  gameover = false;
 
-  constructor() {
-    this.reset();
-  }
-
-  play(x,y) {
+  play(x: number, y: number) {
     if (!this.gameover && this.board[x][y] ==='') {
       this.board[x][y] = this.player;
       this.player = this.player == 'x' ? 'o': 'x';
@@ -20,33 +16,19 @@ export class Game {
     }
   }
 
-  reset() {
-    this.board = [['', '', ''], ['', '', ''], ['', '', '']];
-    this.player='x';
-    this.winner='';
-    this.gameover = false;
-  }
-
   check() {
-    const allWinningLists = [
-      this.board,                   // rows
+    const allWinningLists = [].concat(
+      this.board,             // rows
       zip(this.board),        // columns
       diagonals(this.board)   // diagonals
-    ];
+    );
 
-    this.winner = allWinningLists
-      .reduce((allLists, lists) => allLists.concat(lists), [])
-      .reduce(getWinnerFromList, '');
+    this.winner = allWinningLists.reduce(getWinnerFromList, '');
 
     if (checkDraw(this.board) || this.winner !=='') {
       this.gameover = true;
     }
   }
-
-  get done() {
-    return this.gameover;
-  }
-
 
   get draw() {
     return this.gameover && this.winner === ''

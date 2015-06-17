@@ -21,7 +21,7 @@ let styles = require('./tictactoe.css');
     <h1>Tic Tac Toe</h1>
     <h2 *ng-if="winner">{{winner}} won!</h2>
     <h2 *ng-if="draw">draw</h2>
-    <button (click)=reset()>reset</button>
+    <button (click)="reset()">reset</button>
     <board [board]="game.board" (select)="selected($event)"></board>
   `
 })
@@ -41,7 +41,7 @@ export class Tictactoe {
   }
 
   reset() {
-    this.game.reset();
+    this.game = new this.game.constructor();
   }
 
   // select event listener (see markup above)

@@ -20,7 +20,7 @@ import { Component, View, NgFor, EventEmitter } from 'angular2/angular2';
           <div class="tile"
                [class.x]="tile=='x'"
                [class.o]="tile=='o'"
-               (^click)="play(x, y)">
+               (^click)="play({x: x, y: y})">
           </div>
         </div>
       </div>
@@ -34,9 +34,11 @@ export class Board {
     this.select = new EventEmitter();
   }
 
-  play(x,y) {
+  play(coord: Point) {
     // emit select event
-    this.select.next({x, y});
+    this.select.next(coord);
   }
 
 }
+
+type Point = { x: number; y: number }

@@ -20,7 +20,7 @@ import { Component, View, NgFor, EventEmitter } from 'angular2/angular2';
           <div class="tile"
                [class.x]="tile=='x'"
                [class.o]="tile=='o'"
-               (^click)="play({x: x, y: y})">
+               (click)="select.next({x: x, y: y})">
           </div>
         </div>
       </div>
@@ -28,17 +28,5 @@ import { Component, View, NgFor, EventEmitter } from 'angular2/angular2';
   `
 })
 export class Board {
-  select: EventEmitter;
-
-  constructor() {
-    this.select = new EventEmitter();
-  }
-
-  play(coord: Point) {
-    // emit select event
-    this.select.next(coord);
-  }
-
+  select = new EventEmitter();
 }
-
-type Point = { x: number; y: number }

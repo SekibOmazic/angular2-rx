@@ -33,11 +33,16 @@ export class Autosuggest {
       .flatMapLatest((query: string) => this.service.search(query)) // send query to search service
 
       // here is the real action
-      .subscribe((results: string[]) => {
-        // fire "term" event
-        // the Search component is the listener
-        this.term.next(results);
-      })
+      .subscribe(
+        (results: string[]) => {
+          // fire "term" event
+          // the Search component is the listener
+          this.term.next(results);
+        },
+        err => {
+          console.log(err);
+        }
+      )
   }
 
 }

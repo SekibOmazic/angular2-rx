@@ -78,7 +78,8 @@ We have good experience using these editors:
 
 
 ### Todo
-* Add fetch polyfill. For now it works in Chrome only
+* img for 'X' in tic-tac-toe doesn't load after moving to Angular alpha.30. Makes no sense!
+* Strange TS warnings on autosuggest.ts and github.ts - need to fix that.
 * production/development environments
 * testing
 * e2e

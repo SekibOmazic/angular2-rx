@@ -3,7 +3,6 @@
 // Angular 2
 import {Component, View, ElementRef, NgFor} from 'angular2/angular2';
 
-import {document} from 'angular2/src/facade/browser';
 import {NgZone} from 'angular2/src/core/zone/ng_zone';
 
 import {MessageService} from './MessageService';
@@ -30,20 +29,14 @@ import * as Rx from 'rx';
   `
 })
 export class Timeflies {
-  zone: NgZone;
-  el: any;
-  pos: String;
-  color: String;
-  letters: Array<any>;
+  el: HTMLElement;
+  pos = 'absolute';
+  color = 'red';
+  letters: LetterConfig[];
 
-  constructor(elementRef: ElementRef, service: MessageService, zone: NgZone) {
-    // get the zone reference
-    this.zone = zone;
+  constructor(elementRef: ElementRef, service: MessageService, private zone: NgZone) {
 
     this.el = elementRef.nativeElement;
-    this.letters = service.message;
-    this.color='red';
-    this.pos = 'absolute';
 
     // initial mapping (before mouse moves)
     this.letters = service.message.map(
@@ -64,7 +57,7 @@ export class Timeflies {
     // got this hint from @mgonto
     this.zone.runOutsideAngular(() => {
       Rx.Observable.fromEvent(this.el, 'mousemove')
-        .map(e => {
+        .map((e: MouseEvent) => {
           //var offset = getOffset(this.el);
 
           // subtract offset of the element
@@ -115,4 +108,11 @@ export class Timeflies {
     });
   }
 
+}
+
+interface LetterConfig {
+  text: string;
+  top: number;
+  left: number;
+  index: number;
 }

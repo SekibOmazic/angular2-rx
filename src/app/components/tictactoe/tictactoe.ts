@@ -8,7 +8,6 @@ import { Game }  from './game_service';
 
 let styles = require('./tictactoe.css');
 
-
 @Component({
   selector: 'tictactoe',
   viewInjector: [ Game ]
@@ -18,33 +17,19 @@ let styles = require('./tictactoe.css');
   styles: [ styles ],
   template:`
     <h1>Tic Tac Toe</h1>
-    <h2 *ng-if="winner">{{winner}} won!</h2>
-    <h2 *ng-if="draw">draw</h2>
-    <button (click)=reset()>reset</button>
-    <board [board]="game.board" (select)="selected($event)"></board>
+    <h2 *ng-if="game.winner">{{game.winner}} won!</h2>
+    <h2 *ng-if="game.draw">draw</h2>
+    <button (click)="reset()">reset</button>
+    <board [board]="game.board" (select)="game.play($event)"></board>
   `
 })
 export class Tictactoe {
-  game: Game;
 
-  constructor(game: Game) {
-    this.game = game;
-  }
-
-  get winner() {
-    return this.game.winner;
-  }
-
-  get draw() {
-    return this.game.draw;
+  constructor(public game: Game) {
   }
 
   reset() {
-    this.game.reset();
+    this.game = new this.game.constructor();
   }
 
-  // select event listener (see markup above)
-  selected(coord) {
-    this.game.play(coord.x, coord.y);
-  }
 }

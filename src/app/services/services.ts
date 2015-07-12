@@ -1,3 +1,5 @@
+/// <reference path="../../../typings/tsd.d.ts" />
+
 import { bind } from 'angular2/di';
 import { Github } from '../components/autosuggest/github';
 

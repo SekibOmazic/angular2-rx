@@ -7,16 +7,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
   <base href="/">
   <!-- styles -->
   <link rel="stylesheet" href="css/angular-material.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
   <link rel="stylesheet" href="css/rxjs.css"/>
-  <!-- Angular 2 -->
-  <script src="/lib/traceur.min.js"></script>
+  <!--
+    Angular 2
+    traceur-runtime: is only needed for ES6 browser polyfill
+    this is not the full traceur only the polyfills
+  -->
+  <script src="/lib/traceur-runtime.min.js"></script>
 </head>
-<body layout="column">
+<body>
 
   <app>
     Loading...

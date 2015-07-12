@@ -1,5 +1,4 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../../../custom_typings/ng2.d.ts" />
 
 // Angular 2
 import {Component, View, NgIf } from 'angular2/angular2';
@@ -12,12 +11,12 @@ let styles = require('./tictactoe.css');
 
 @Component({
   selector: 'tictactoe',
-  appInjector: [ Game ]
+  viewInjector: [ Game ]
 })
 @View({
   directives: [NgIf, Board],
+  styles: [ styles ],
   template:`
-    <style>${styles}</style>
     <h1>Tic Tac Toe</h1>
     <h2 *ng-if="winner">{{winner}} won!</h2>
     <h2 *ng-if="draw">draw</h2>

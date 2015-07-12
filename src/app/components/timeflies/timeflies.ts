@@ -1,5 +1,4 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../../../custom_typings/ng2.d.ts" />
 
 // Angular 2
 import {Component, View, ElementRef, NgFor} from 'angular2/angular2';
@@ -41,7 +40,7 @@ export class Timeflies {
     // get the zone reference
     this.zone = zone;
 
-    this.el = elementRef.domElement;
+    this.el = elementRef.nativeElement;
     this.letters = service.message;
     this.color='red';
     this.pos = 'absolute';

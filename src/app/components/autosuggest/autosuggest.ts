@@ -1,5 +1,4 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../../../custom_typings/ng2.d.ts" />
 
 // Angular 2
 import { Directive, View, ElementRef, NgFor, EventEmitter } from 'angular2/angular2';
@@ -25,7 +24,7 @@ export class Autosuggest {
     this.service = service;
     this.term = new EventEmitter();
 
-    Rx.Observable.fromEvent(elementRef.domElement, 'keyup')
+    Rx.Observable.fromEvent(elementRef.nativeElement, 'keyup')
       .debounce(250) // Pause for 250ms
       .distinctUntilChanged() // Only if the value has changed
       .map(e => e.target.value) // Project the text from the input

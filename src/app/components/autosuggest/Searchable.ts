@@ -1,5 +1,5 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
 
 export interface Searchable<T> {
-  search(query: string): Promise<T>;
+  search(query: string): Rx.Observable<T[]>;
 }

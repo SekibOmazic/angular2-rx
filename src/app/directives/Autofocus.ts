@@ -1,4 +1,6 @@
-import {Directive, ElementRef} from 'angular2/angular2';
+/// <reference path="../../../typings/tsd.d.ts" />
+import {Directive} from 'angular2/annotations';
+import {ElementRef} from 'angular2/core';
 // Simple example directive that fixes autofocus problem with multiple views
 @Directive({
   selector: '[autofocus]' // using [ ] means selecting attributes
@@ -6,6 +8,8 @@ import {Directive, ElementRef} from 'angular2/angular2';
 export class Autofocus {
   constructor(public el: ElementRef) {
     // autofocus fix for multiple views
-    this.el.domElement.focus();
+    if (this.el.nativeElement.focus) {
+      this.el.nativeElement.focus();
+    }
   }
 }

@@ -1,25 +1,52 @@
 /// <reference path="../../../typings/tsd.d.ts" />
-/// <reference path="../../custom_typings/ng2.d.ts" />
 
-// Angular 2
-import {Component, View, coreDirectives} from 'angular2/angular2';
-import {RouteConfig, RouterOutlet, RouterLink, Router} from 'angular2/router';
-import {BrowserLocation} from 'angular2/src/router/browser_location';
+/*
+ * Angular 2
+ */
+import {Component, View} from 'angular2/annotations';
+import {RouteConfig} from 'angular2/router';
 
+/*
+ * Directives
+ */
+import {coreDirectives} from 'angular2/angular2';
+import {routerDirectives} from 'angular2/router';
+import {formDirectives} from 'angular2/forms';
+// Import all of our custom app directives
+import {appDirectives} from '../directives/directives';
+
+/*
+ * Components
+ */
 import {Home} from './home/home';
 import {Timeflies} from './timeflies/timeflies';
 import {Tictactoe} from './tictactoe/tictactoe';
 import {Search} from './autosuggest/search_github';
 
-// Import all of our custom app directives
-import {appDirectives} from '../directives/directives';
 
+/*
+ * App Component
+ * Top Level Component
+ * Simple router component example
+ */
 @Component({
-  selector: 'app'
+  selector: 'app', // without [ ] means we are selecting the tag directly
 })
 @View({
   // needed in order to tell Angular's compiler what's in the template
-  directives: [ RouterOutlet, RouterLink, coreDirectives, appDirectives ],
+  directives: [
+    // Angular's core directives
+    coreDirectives,
+
+    // Angular's form directives
+    formDirectives,
+
+    // Angular's router
+    routerDirectives,
+
+    // Our collection of directives from /directives
+    appDirectives
+  ],
   template: `
     <md-toolbar layout="row" class="md-default-theme">
       <img src="angular-shield.png" alt="Angular2" height="60" width="60">
@@ -28,10 +55,10 @@ import {appDirectives} from '../directives/directives';
     <div layout="row" flex>
         <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2 md-locked-open" md-component-id="left">
           <ul class="rxjs-menu">
-            <li><a router-link="home" class="md-button md-default-theme"><span>Home</span></a></li>
-            <li><a router-link="timeflies" class="md-button md-default-theme">Timeflies</a></li>
-            <li><a router-link="tictactoe" class="md-button md-default-theme">Tic Tac Toe</a></li>
-            <li><a router-link="search" class="md-button md-default-theme">Search Github</a></li>
+            <li><a [router-link]=" ['/home'] "      class="md-button md-default-theme"><span>Home</span></a></li>
+            <li><a [router-link]=" ['/timeflies'] " class="md-button md-default-theme">Timeflies</a></li>
+            <li><a [router-link]=" ['/tictactoe'] " class="md-button md-default-theme">Tic Tac Toe</a></li>
+            <li><a [router-link]=" ['/search'] "    class="md-button md-default-theme">Search Github</a></li>
           </ul>
         </md-sidenav>
         <div layout="column" flex id="content">
@@ -50,11 +77,7 @@ import {appDirectives} from '../directives/directives';
 ])
 export class App {
   name: string;
-  constructor(router: Router, browserLocation: BrowserLocation) {
-    this.name = 'Angular 2';
-
-    // we need to manually go to the correct uri until the router is fixed
-    let uri = browserLocation.path();
-    router.navigate(uri);
+  constructor() {
+    this.name = 'angular 2';
   }
 }

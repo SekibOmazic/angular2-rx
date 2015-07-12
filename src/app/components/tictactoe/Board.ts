@@ -1,14 +1,11 @@
 /// <reference path="../../../../typings/tsd.d.ts" />
-/// <reference path="../../../custom_typings/ng2.d.ts" />
 
 // Angular 2
 import { Component, View, NgFor, EventEmitter } from 'angular2/angular2';
 
 @Component({
   selector: 'board',
-  properties: {
-    board: 'board'
-  },
+  properties: ['board'],
   events: ['select']
 })
 @View({

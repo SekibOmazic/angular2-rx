@@ -5,6 +5,10 @@ This repo serves as a playground for Angular2 and RxJs.
 
 Based on [angular2-webpack-starter](https://github.com/angular-class/angular2-webpack-starter/). Good job [@gdi2290](https://github.com/gdi2290)!
 
+## Important notice
+This repository is no longer maintained. All examples have been moved to [angular2-webpack-starter](https://github.com/angular-class/angular2-webpack-starter/tree/master/examples)
+
+
 ### Quick start
 > Clone/Download the repo then edit `app.ts` inside [`/src/app/components/app.ts`](https://github.com/SekibOmazic/angular2-rx/blob/master/src/app/components/app.ts)
 
